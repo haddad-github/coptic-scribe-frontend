@@ -22,6 +22,7 @@ interface HeaderProps {
   setUserEmail: (email: string | null) => void;
   userEmail: string | null;
   token: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setSelectedBookmark: (bookmark: any) => void;
 }
 
@@ -75,6 +76,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, setIsLoggedIn, setToken, set
 
   //Handle bookmark updates and refresh via global events
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleUpdate = (e: any) => {
       setSelectedBookmark(e.detail);
     };

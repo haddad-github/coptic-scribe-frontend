@@ -25,11 +25,11 @@ interface WordData {
   copticWordAlt?: string | null;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface MainPageProps {
   isLoggedIn: boolean;
   token: string | null;
   userEmail: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedBookmark: any;
 }
 
@@ -67,6 +67,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
   //Store combined English and Arabic lines for multiples
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [englishLine, setEnglishLine] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [arabicLine, setArabicLine] = useState('');
 
   //State for full dictionary + transliteration data for every word in every line
