@@ -62,6 +62,7 @@ const o_vowels: string[] = ['ⲟ', 'Ⲟ', 'ⲱ', 'Ⲱ'];
 const ee_vowels: string[] = ['ⲓ', 'Ⲓ', 'ⲩ', 'Ⲩ', 'ⲉ', 'Ⲉ', 'ⲏ', 'Ⲏ'];
 
 //Special case
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const special_cases: CopticLetter[] = [
     {'lowercase': 'ϩ', 'uppercase': 'Ϩ', 'name': 'Soo', 'pronunciation_1': 's', 'pronunciation_2': null, 'pronunciation_3': null, 'rule_1': 'Used as the number "6"', 'rule_2': null, 'rule_3': null},
     {'lowercase': '⳿', 'uppercase': null, 'name': 'Jinkim', 'pronunciation_1': 'eh', 'pronunciation_2': null, 'pronunciation_3': null, 'rule_1': 'Adds an "eh" sound before the letter it tops', 'rule_2': null, 'rule_3': null}
@@ -130,21 +131,26 @@ async function getLetterTransliteration(letter: string, next_letter: string | nu
             //Special rules for certain letters
             if (letter === 'ⲃ' || letter === 'Ⲃ') { //Veeta (B/V rule)
                 if (next_letter && ee_vowels.includes(next_letter)) {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_1!; //"v" as in "vital"
                     applied_rule = `${letter} is pronounced 'v' because a vowel comes after.`;
                 } else {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_2!; //"b" as in "bottle"
                     applied_rule = `${letter} is pronounced 'b' because a consonant comes after.`;
                 }
 
             } else if (letter === 'ⲅ' || letter === 'Ⲅ') { //Ghamma (G/N/Gh rule)
                 if (next_letter && ee_vowels.includes(next_letter)) {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_1!; //"g" as in "game"
                     applied_rule = `${letter} is pronounced 'g' because an 'e'-sounding vowel comes after.`;
                 } else if (next_letter && ['ⲅ', 'ⲕ', 'ⲝ', 'ⲍ'].includes(next_letter)) {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_2!; //"n" as in "another"
                     applied_rule = `${letter} is pronounced 'n' because ${next_letter} comes after.`;
                 } else {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_3!; //"gh" as in "Ghassan"
                     applied_rule = `${letter} is pronounced 'gh' by default.`;
                 }
@@ -162,9 +168,11 @@ async function getLetterTransliteration(letter: string, next_letter: string | nu
 
             } else if (letter === 'ⲑ' || letter === 'Ⲑ') { //Theta (T/Th rule)
                 if (previous_letter && ['ϣ', 'ⲥ'].includes(previous_letter)) {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_1!; //"t" as in "Tapioca"
                     applied_rule = `${letter} is pronounced 't' because ${previous_letter} comes before.`;
                 } else {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_2!; //Default "th"
                     applied_rule = `${letter} is pronounced 'th' by default.`;
                 }
@@ -183,14 +191,17 @@ async function getLetterTransliteration(letter: string, next_letter: string | nu
 
             } else if (letter === 'ⲭ' || letter === 'Ⲭ') { //Kei (Sh/Kh/K)
                 if (next_letter && ee_vowels.includes(next_letter)) {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_1!; //"sh"
                     applied_rule = `${letter} is pronounced 'sh' because an 'e'-sounding vowel follows.`;
                 } else {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_2!; //Default "kh"
                 }
 
                 //Check if the word is of Egyptian origin
                 if (coptic_word && (await isEgyptianOrigin(coptic_word))) {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     translit = entry.pronunciation_3!; // "k"
                     applied_rule = `${letter} is pronounced 'k' because the word is of Egyptian origin.`;
                 }

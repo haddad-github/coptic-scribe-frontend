@@ -36,6 +36,7 @@ const CopticKeyboard: React.FC<CopticKeyboardProps> = ({ onInsert }) => {
         <div key={i} className="flex flex-wrap justify-center gap-2">
           {row.map((char, j) => {
             //Find corresponding Latin character for the tooltip under each key
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const latin = Object.entries(transliterationMap).find(([_, c]) => c === char)?.[0] ?? '';
             return (
               <button

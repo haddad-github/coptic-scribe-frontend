@@ -25,6 +25,7 @@ interface WordData {
   copticWordAlt?: string | null;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface MainPageProps {
   isLoggedIn: boolean;
   token: string | null;
@@ -60,9 +61,11 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
 
   //State for the transliterated result
   const [translitResult, setTranslitResult] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [letterRules, setLetterRules] = useState<{ start: number; length: number; rule: string }[]>([]);
 
   //Store combined English and Arabic lines for multiples
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [englishLine, setEnglishLine] = useState('');
   const [arabicLine, setArabicLine] = useState('');
 
@@ -82,6 +85,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
   const [showOverwriteDropdown, setShowOverwriteDropdown] = useState(false);
 
   //User’s saved bookmarks (fetched from backend)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [bookmarks, setBookmarks] = useState<any[]>([]);
 
   //Whether to show the instruction panel at the top of the page

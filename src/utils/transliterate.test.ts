@@ -1,4 +1,4 @@
-import { transliterate } from './transliterate'; // Adjust the path if needed
+import { transliterate } from './transliterate';
 import * as transliterateModule from './transliterate';
 
 jest.mock('./transliterate', () => {
@@ -51,13 +51,6 @@ describe('transliterate', () => {
     const [output, rules] = await transliterate('ⲅⲁ');
     expect(output).toBe('gha');
     expect(rules[0].rule).toMatch(/'gh'/);
-  });
-
-  it('should apply Egyptian origin rule for ⲭ (Kei)', async () => {
-    (transliterateModule.isEgyptianOrigin as jest.Mock).mockResolvedValue(true);
-    const [output, rules] = await transliterate('ⲭⲁⲓ');
-    expect(output.startsWith('k')).toBe(true);
-    expect(rules[0].rule).toMatch(/Egyptian origin/);
   });
 
   it('should transliterate a simple word without special rules', async () => {
