@@ -1,0 +1,16 @@
+.TypingLine {
+  /* No border, no background so it looks invisible */
+  outline: none;
+  padding: 0.5rem;
+  min-height: 2rem;
+
+  /* Allow wrapping for multiple lines */
+  white-space: pre-wrap;
+}
+
+/* Placeholder trick: only show if empty */
+.TypingLine:empty:before {
+  content: attr(data-placeholder);
+  color: gray;
+  pointer-events: none;
+}
