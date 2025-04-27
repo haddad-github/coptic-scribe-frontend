@@ -64,4 +64,4 @@ Fork the repo, create a feature branch, and submit a PR!
 
 ## 📜 License
 
-MIT License © 2025 – Rafic Haddad
+MIT License © 2025 – Rafic Haddad 
