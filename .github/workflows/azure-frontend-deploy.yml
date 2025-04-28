@@ -49,6 +49,7 @@ jobs:
           NPM_CONFIG_FORCE: true
           NPM_CONFIG_LEGACY_PEER_DEPS: true
           REACT_APP_DICTIONARY_API_URL: https://coptic-scribe-dictionary-backend-gtagagg6ezcmaje9.canadacentral-01.azurewebsites.net
+          REACT_APP_USER_API_URL: https://coptic-scribe-user-backend-a6cuc9bwdwfaehg9.canadacentral-01.azurewebsites.net
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
