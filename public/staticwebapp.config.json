@@ -2,5 +2,10 @@
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": ["/assets/*", "/static/*", "/favicon.ico", "/*.png", "/*.css", "/*.js"]
+  },
+  "globalHeaders": {
+    "Access-Control-Allow-Origin": "https://blue-smoke-09f427910-1.centralus.6.azurestaticapps.net",
+    "Access-Control-Allow-Methods": "GET, OPTIONS, POST",
+    "Access-Control-Allow-Headers": "Origin, Content-Type, Accept, Authorization"
   }
 }
