@@ -6,6 +6,7 @@ export interface DebounceOptions {
 }
 
 //Debounce function (returns a debounced version of input function)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function debounce<T extends (...args: any[]) => void>(
   func: T,
   wait: number,
@@ -15,6 +16,7 @@ export function debounce<T extends (...args: any[]) => void>(
   let timer: ReturnType<typeof setTimeout> | null = null;
 
   //Timestamps to track latest calls/invocations
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let lastCallTime = 0;
   let lastInvokeTime = 0;
 
@@ -68,6 +70,7 @@ export function debounce<T extends (...args: any[]) => void>(
       maxTimer = setTimeout(() => {
         if (lastArgs) {
           invoke(); //force run after maxWait even if typing continues
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           clearTimeout(timer!); //cancel main timer if pending
           timer = null;
         }
