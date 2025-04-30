@@ -10,7 +10,7 @@ const navItems = [
   { icon: '/home_icon.png', label: 'Home', href: '/' },
   { icon: '/email_icon.png', label: 'Contact', href: 'mailto:rafic.george.haddad@gmail.com', external: true },
   { icon: '/ressources_icon.png', label: 'Ressources', href: '/ressources' },
-  { icon: '/github_icon.png', label: 'GitHub', href: 'https://github.com/haddad-github', external: true },
+  { icon: '/github_icon.png', label: 'GitHub', href: 'https://github.com/haddad-github/coptic-scribe', external: true },
   { icon: '/text_icon.png', label: 'Coptic Text', href: '#', comingSoon: true },
 ];
 
