@@ -155,7 +155,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
     const debouncedHandleTextChange = useRef(
       debounce((text: string) => {
         handleTextChange(text).catch(console.error);
-        }, 50, {
+        }, 250, {
         trailing: true,  //run after typing stops
         leading: false,  //don't run immediately
         maxWait: 2000    //force run if user types endlessly
