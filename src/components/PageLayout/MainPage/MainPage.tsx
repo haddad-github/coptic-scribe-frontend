@@ -10,6 +10,10 @@ import SearchDropdown from '../../SearchDropdown/SearchDropdown';
 //Import transliteration script
 import {fetchDictionaryEntry, transliterate} from '../../../utils/transliterate';
 
+//Import debounce for delayed API calls on user input
+import { debounce } from '../../../utils/debounce';
+
+
 const userApiUrl = process.env.REACT_APP_USER_API_URL;
 
 interface WordData {
@@ -146,7 +150,18 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
     }
 
     setLinesData(allLinesData);
-  };
+    };
+
+    const debouncedHandleTextChange = useRef(
+      debounce((text: string) => {
+        handleTextChange(text).catch(console.error);
+        }, 500, {
+        trailing: true,  //run after typing stops
+        leading: false,  //don't run immediately
+        maxWait: 2000    //force run if user types endlessly
+      })
+    ).current;
+
 
     //Replaces the oldWord in the copticText with newWord, then re-runs handleTextChange
     const handleSuggestionClick = async (oldWord: string, newWord: string) => {
@@ -163,7 +178,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
       //Rebuild the full text preserving line structure
       const updatedText = updatedLines.join('\n');
       setCopticText(updatedText);
-      await handleTextChange(updatedText);
+      await debouncedHandleTextChange(updatedText);
     };
 
     //Copies a single line of text (Coptic, transliteration, translations) to the clipboard
@@ -339,7 +354,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
         setArabicLine(safeArabic);
 
         //Re-run full parsing to regenerate word blocks
-        handleTextChange(safeCoptic).catch(console.error);
+        debouncedHandleTextChange(safeCoptic);
       }
     }, [selectedBookmark]);
 
@@ -397,7 +412,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
               sel.addRange(range);
 
               //Update app state with new input
-              handleTextChange(typingLineRef.current.innerText).catch(console.error);
+              debouncedHandleTextChange(typingLineRef.current.innerText);
             }
           }
           return;
@@ -420,7 +435,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
             sel.addRange(range);
 
             //Update the app with the new inserted character
-            handleTextChange(typingLineRef.current.innerText).catch(console.error);
+            debouncedHandleTextChange(typingLineRef.current.innerText);
           }
         }
       };
@@ -430,7 +445,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
 
       //Cleanup listener on unmount
       return () => document.removeEventListener('keydown', handleKeyPress);
-    }, [handleTextChange]);
+    }, [debouncedHandleTextChange]);
 
   return (
     <div className="MainPage px-4 sm:px-24 lg:px-40">
@@ -540,7 +555,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
         {/* Typing area — allows user to enter Coptic text */}
         <TypingLine
           placeholder="Type or copy-paste your Coptic text here..."
-          onTextChange={handleTextChange}
+          onTextChange={debouncedHandleTextChange}
           value={copticText}
           onRefReady={(ref) => (typingLineRef.current = ref.current)}
         />
@@ -585,7 +600,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
                 sel.addRange(range);
 
                 //Update application state with new input
-                handleTextChange(typingLineRef.current.innerText).catch(console.error);
+                debouncedHandleTextChange(typingLineRef.current.innerText);
               }
             }
           }}
@@ -762,7 +777,7 @@ const MainPage: React.FC<MainPageProps> = ({ isLoggedIn, token, userEmail, selec
                     setTranslitResult(updated.transliteration);
                     setEnglishLine(updated.englishTranslation || '');
                     setArabicLine(updated.arabicTranslation || '');
-                    await handleTextChange(updated.copticText);
+                    await debouncedHandleTextChange(updated.copticText);
                   }
                 } else {
                   //Request failed → show message from backend
